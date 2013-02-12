@@ -15,6 +15,17 @@ it under the same terms as Perl itself.
    quality for this Perl module is somewhat less than what you
    might expect from official CPAN releases :-(
 
+   Disclaimer 2.0
+   --------------
+   Hi, this is Mike South (msouth@cpan.org). I got myself added
+   as a co-maintainer to this project so that I could fix a few
+   small bugs and let it pass tests using more recent versions of
+   libwww.  I have no deep knowledge of the module but I am
+   trying to address trivial blockers that are preventing legacy
+   users from being able to install on an updated system.  I will
+   do my best to handle any issues that come up, and I thank you
+   in advance for your patience and suggestions/patches.
+
 
 1. What is it?
 --------------
@@ -63,7 +74,7 @@ it tests ok anyways :-)
 
 Checked versions so far:
 
-    libwww-5.76                 use ParallelUA-2.57
+    libwww-5.76 - 6.04*          use ParallelUA-2.58
 
     libwww-5.66 - 5.69          untested
     libwww-5.64 - 5.65          use ParallelUA-2.55
@@ -76,8 +87,13 @@ Checked versions so far:
     libwww-5.19                 untested
     libwww-5.18 and below       not ok!
 
-Note: For optimal performance you shoud use the _latest_ version of BOTH
-      libwww-perl (i.e. 5.76) and ParallelUserAgent (i.e. 2.57).
+Note: For optimal results use the _latest_ version of BOTH
+      libwww-perl (i.e. 6.04) and ParallelUserAgent (i.e. 2.58).
+
+* note--not every single version in this range has been tested. 5.76,
+5.808, 6.04 I am sure of.  There could be versions in between that
+need to go back to 2.57.  If you find that to be the case please
+file a bug at rt.cpan.org for this distribution.
 
 3. How to use it?
 -----------------
@@ -118,18 +134,14 @@ how to use this module).
 5. Questions, comments, etc.
 ----------------------------
 
-Question about how to use the underlying LWP library should be
-directed to the comp.lang.perl.modules USENET Newsgroup.  
+You can join the libwww-perl mailing list by following the
+instructions at http://lists.perl.org/list/libwww-perl.html
+(send email to libwww-subscribe@perl.org).
 
-Bug reports and suggestions for improvements can be sent to the
-<libwww-perl@ics.uci.edu> mailing list.  This mailing list is also the
-place for general discussions and development of the libwww-perl
-package. 
+Bug reports and suggestions for improvements can be submitted via
+the cpan RT installation: 
 
-You can join the mailing list by sending a message to
-<libwww-perl-request@ics.uci.edu> with "Subscribe" as subject.
-            ^^^^^^^^
-
+https://rt.cpan.org/Dist/Display.html?Queue=ParallelUserAgent
 
 COPYRIGHT
 

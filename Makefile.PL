@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 
 print "Checking your version of libwww...";
 my $required  = "5.64";
-my $supported = "5.76";
+my $supported = "6.04";
 my $version;
 eval {
     require LWP;
@@ -49,7 +49,7 @@ PS: If you _do_ have the libwww-perl library installed, then this
 EOT
     exit;  # No need to go on
 } else {
-    if ($version < $supported) { print " ok ($version)\nNote: you should upgrade to $supported (although ParallelUA should work ok)\n"; } 
+    if ($version < $supported) { print " ok ($version)\nNote: you can upgrade to $supported (although ParallelUA should work ok)\n"; } 
     else { print " ok\n"; }
 }
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence

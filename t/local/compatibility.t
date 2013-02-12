@@ -160,10 +160,12 @@ sub httpd_get_file
 $req = new HTTP::Request GET => url("/file?name=$file", $base);
 $res = $ua->request($req);
 
+# under previous versions of the library a $res->title was
+# returned--that part of this test has been removed for
+# compatibility with the new library
 print "not " unless $res->is_success
                 and $res->content_type eq 'text/html'
                 and $res->content_length == 151
-		and $res->title eq 'Test'
 		and $res->content =~ /different, since/;
 print "ok 5\n";		
 
@@ -220,7 +222,12 @@ while ($res->previous) {
    $i++;
    $res = $res->previous;
 }
-print "not " unless $i == 6;
+# under the old library with the old "duplicated" methods (which are now
+# named with their old names preceded by "deprecated_") this chained
+# to a depth of 6.  With the new library,  and those methods 
+# deprecated (search for  'sub deprecated_' in /LWP/Parallel/UserAgent.pm ), 
+# it gives 8.
+print "not " unless ($i == 6 or $i == 8);
 print "ok 11\n";
 
 #----------------------------------------------------------------

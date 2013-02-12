@@ -7,7 +7,6 @@ package LWP::Parallel::UserAgent::Entry;
 
 require 5.004;
 use Carp();
-use UNIVERSAL qw(can);
 
 # allowed fields in Parallel::UserAgent entry
 my %fields = (
@@ -387,7 +386,7 @@ Parallel::UserAgent return from $pua->wait().
 If C<$arg> is omitted, then the content is stored in the response
 object itself.
 
-If C<$arg> is a C<LPW::Parallel::UserAgent::Entry> object, then this
+If C<$arg> is a C<LWP::Parallel::UserAgent::Entry> object, then this
 request will be registered as a follow-up request to this particular
 entry. This will not create a new entry, but instead link the current
 response (i.e. the reason for re-registering) as $response->previous
@@ -1324,7 +1323,7 @@ sub handle_response
 	  $class =~ s/-/_/g;
 	
 	  no strict 'refs';
-	  unless (defined %{"$class\::"}) {
+	  unless (%{"$class\::"}) {
 	    # try to load it
 	    eval "require $class";
 	    if ($@) {
@@ -1364,12 +1363,18 @@ sub _single_request {
   }
 }
 
-=item $ua->simple_request($request, [$arg [, $size]])
+=item DEPRECATED $ua->deprecated_simple_request($request, [$arg [, $size]])
 
-This method simulates the behavior of LWP::UserAgent->simple_request.
-It is actually kinda overkill to use this method in
-Parallel::UserAgent, and it is mainly here for testing backward
-compatibility with the original LWP::UserAgent. The following 
+This method simulated the behavior of LWP::UserAgent->simple_request.
+It was actually kinda overkill to use this method in
+Parallel::UserAgent, and it was mainly here for testing backward
+compatibility with the original LWP::UserAgent. 
+
+The name has been changed to deprecated_simple_request in case you 
+need it, but because it it no longer compatible with the most recent
+version of libwww, it will no longer run by default.
+
+The following 
 description is taken directly from the corresponding libwww pod:
 
 $ua->simple_request dispatches a single WWW request on behalf of a
@@ -1392,7 +1397,14 @@ object itself.
 # sub simple_request
 # (see LWP::UserAgent)
 
-sub send_request {
+# Took this out because with the new libwww it goes into deep
+# recursion.  I believe calls that might have hit this will now
+# just go to LWP::UserAgent's implementation.  If I comment
+# these out, tests pass; with them in, you get this deep
+# recursion.  I'm assuming it's ok for them to just
+# go away, since they were deprecated many years ago after
+# all.
+sub deprecated_send_request {
   my $self = shift;
   
   $self->initialize;
@@ -1402,10 +1414,14 @@ sub send_request {
   return $response;
 }
 
-=item $ua->request($request, $arg [, $size])
+=item DEPRECATED $ua->deprecated_request($request, $arg [, $size])
 
-Included for compatibility testing with LWP::UserAgent. Every day
-usage is depreciated! Here is what LWP::UserAgent has to say about it:
+Previously called 'request' and included for compatibility testing with 
+LWP::UserAgent. Every day usage was deprecated, and now you have to call it
+with the deprecated_request name if you want to use it (because an incompatibility
+was introduced with the newer versions of libwww). 
+
+Here is what LWP::UserAgent has to say about it:
 
 Process a request, including redirects and security.  This method may
 actually send several different simple reqeusts.
@@ -1414,7 +1430,7 @@ The arguments are the same as for C<simple_request()>.
 
 =cut
 
-sub request {
+sub deprecated_request {
   my $self = shift;
   
   $self->initialize;
@@ -1494,7 +1510,9 @@ sub init_request {
     $cookie_jar->add_cookie_header($request) if $cookie_jar;
 
     # Transfer some attributes to the protocol object
-    $protocol->parse_head($parse_head);
+    $protocol->can('parse_head') ?
+   $protocol->parse_head($parse_head) :
+   $protocol->_elem('parse_head', $parse_head);
     $protocol->max_size($max_size);
 
     LWP::Debug::trace ("<- (undef".
