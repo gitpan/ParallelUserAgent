@@ -1,3 +1,4 @@
+# vim: set ft=perl :
 $| = 1; # autoflush
 
 my $DEBUG = 0;
@@ -20,7 +21,7 @@ if ($D eq 'daemon') {
 
     my $d = HTTP::Daemon->new(Timeout => 10);
 
-    print "Please to meet you at: <URL:", $d->url, ">\n";
+    print "[$$] Pleased to meet you at: <URL:", $d->url, ">\n";
 
     open(STDOUT, ">/dev/null");
 
@@ -40,8 +41,12 @@ if ($D eq 'daemon') {
 	$c = undef;  # close connection
     }
     print STDERR "HTTP Server terminated\n" if $DEBUG;
+    # TODO no reason to run down there and confuse things as if I was the
+    # one that started this, is there?
+    # exit; 
 } else {
     use Config;
+    print STDERR "[$$] i'm starting the daemon now!\n" if $DEBUG;
     open(DAEMON, "$Config{'perlpath'} local/compatibility.t daemon |") or die "Can't exec daemon: $!";
 }
 
@@ -49,9 +54,11 @@ print "1..20\n";
 
 my $greeting = <DAEMON>;
 $greeting =~ /(<[^>]+>)/;
+print STDERR "I am [$$], greeting is [$greeting] and right now dollar 1 is [$1]\n" if $DEBUG;
+my $url_from_daemon = $1;
 
 require URI;
-my $base = URI->new($1);
+my $base = URI->new($url_from_daemon);
 sub url {
    my $u = URI->new(@_);
    $u = $u->abs($_[1]) if @_ > 1;

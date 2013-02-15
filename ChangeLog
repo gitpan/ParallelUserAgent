@@ -1,3 +1,9 @@
+Fri Feb 15 2013 Michael South <msouth@cpan.org>
+ o CPAN Release 2.59
+
+ o some tests were failing due to prerequisites that were not specified
+ o a little more robustness/info in debug mode of t/local/compatibility.t
+
 Tue Dec 11 2012 Michael South <msouth@cpan.org>
 
  o CPAN Release 2.58

@@ -74,7 +74,7 @@ it tests ok anyways :-)
 
 Checked versions so far:
 
-    libwww-5.76 - 6.04*          use ParallelUA-2.58
+    libwww-5.76 - 6.04*          use ParallelUA-2.59
 
     libwww-5.66 - 5.69          untested
     libwww-5.64 - 5.65          use ParallelUA-2.55
@@ -88,7 +88,7 @@ Checked versions so far:
     libwww-5.18 and below       not ok!
 
 Note: For optimal results use the _latest_ version of BOTH
-      libwww-perl (i.e. 6.04) and ParallelUserAgent (i.e. 2.58).
+      libwww-perl (i.e. 6.04) and ParallelUserAgent (i.e. 2.59).
 
 * note--not every single version in this range has been tested. 5.76,
 5.808, 6.04 I am sure of.  There could be versions in between that

@@ -58,6 +58,21 @@ WriteMakefile(
     'NAME'	=> 'LWP::Parallel',
     'DISTNAME'  => 'ParallelUserAgent',
     'VERSION_FROM' => 'lib/LWP/Parallel.pm', # finds $VERSION
+    #
+    # automated testing on 5.16.2 gave errors at make test; not able to find
+    # LWP::Protocol::http10.  Repeated a reduced version of the
+    # test with https and it needed IO::Socket::SSL and LWP::Protocol::https10.  
+    # 
+    # I don't know any of the actual
+    # required version numbers here.  This is a start on 
+    # getting the problem fixed, though.
+    #
+    'PREREQ_PM' => {
+        'LWP'                    => 0,
+        'LWP::Protocol::http10'  => 0,
+        'IO::Socket::SSL'        => 0,
+        'LWP::Protocol::https10' => 0,
+    },
 );
 
 package MY;
