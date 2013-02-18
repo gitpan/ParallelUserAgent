@@ -2,6 +2,17 @@
 # $Id: Makefile.PL,v 1.14 2004/02/10 15:19:10 langhein Exp $
 use ExtUtils::MakeMaker;
 
+=pod 
+
+I am cutting this out.  If you are on a system without LWP it fails to install, when it
+would have succeeded if we just let the PREREQ_PM take effect.  If we suddenly get 
+a bunch of failure reports I can put this back in and special-case the situation 
+where you don't have LWP at all (because, presumably, you're about to get a recent
+enough version in that case, as it will just pull the latest from CPAN).  When I 
+was about to write that code, I figured, well, let's just put the minimum required
+version of LWP in as per the standard and see if that works for poeple.  So,
+good luck with that, file a bug if you disagree with this decision.
+
 print "Checking your version of libwww...";
 my $required  = "5.64";
 my $supported = "6.04";
@@ -52,12 +63,18 @@ EOT
     if ($version < $supported) { print " ok ($version)\nNote: you can upgrade to $supported (although ParallelUA should work ok)\n"; } 
     else { print " ok\n"; }
 }
+
+=cut
+
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 WriteMakefile(
     'NAME'	=> 'LWP::Parallel',
+    'ABSTRACT' => 'Extension for LWP to allow parallel HTTP and FTP access',
     'DISTNAME'  => 'ParallelUserAgent',
     'VERSION_FROM' => 'lib/LWP/Parallel.pm', # finds $VERSION
+    'LICENSE'      => 'perl',
+    'AUTHOR'       => ['Marc Langheinrich <marclang@cpan.org>', 'Mike South (maintainer) <msouth@cpan.org>'],
     #
     # automated testing on 5.16.2 gave errors at make test; not able to find
     # LWP::Protocol::http10.  Repeated a reduced version of the
@@ -68,7 +85,7 @@ WriteMakefile(
     # getting the problem fixed, though.
     #
     'PREREQ_PM' => {
-        'LWP'                    => 0,
+        'LWP'                    => 5.64,
         'LWP::Protocol::http10'  => 0,
         'IO::Socket::SSL'        => 0,
         'LWP::Protocol::https10' => 0,

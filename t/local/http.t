@@ -26,7 +26,7 @@ if ($D eq 'daemon') {
 
     require HTTP::Daemon;
 
-    my $d = new HTTP::Daemon Timeout => 10;
+    my $d = new HTTP::Daemon Timeout => 10, LocalAddr => 'localhost';
 
     print "Please to meet you at: <URL:", $d->url, ">\n";
     open(STDOUT, ">/dev/null");
@@ -45,6 +45,7 @@ if ($D eq 'daemon') {
 	$c = undef;  # close connection
     }
     print STDERR "HTTP Server terminated\n" if $DEBUG;
+    exit 0;
 } else {
     use Config;
     open(DAEMON, "$Config{'perlpath'} local/http.t daemon |") or die "Can't exec daemon: $!";

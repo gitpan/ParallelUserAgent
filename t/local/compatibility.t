@@ -19,7 +19,7 @@ if ($D eq 'daemon') {
 
     require HTTP::Daemon;
 
-    my $d = HTTP::Daemon->new(Timeout => 10);
+    my $d = HTTP::Daemon->new(Timeout => 10, LocalAddr=>'localhost');
 
     print "[$$] Pleased to meet you at: <URL:", $d->url, ">\n";
 
@@ -41,9 +41,7 @@ if ($D eq 'daemon') {
 	$c = undef;  # close connection
     }
     print STDERR "HTTP Server terminated\n" if $DEBUG;
-    # TODO no reason to run down there and confuse things as if I was the
-    # one that started this, is there?
-    # exit; 
+    exit 0; 
 } else {
     use Config;
     print STDERR "[$$] i'm starting the daemon now!\n" if $DEBUG;

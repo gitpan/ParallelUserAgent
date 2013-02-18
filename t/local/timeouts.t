@@ -19,7 +19,7 @@ if ($D eq 'daemon')
     # I am the Daemon
     require HTTP::Daemon;
 
-    my $d = new HTTP::Daemon Timeout => 10;
+    my $d = new HTTP::Daemon Timeout => 10, LocalAddr=>'localhost';
 
     print "Please to meet you at: <URL:", $d->url, ">\n";
     open(STDOUT, ">/dev/null");

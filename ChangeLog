@@ -1,3 +1,18 @@
+Mon Feb 18 2013 Michael South <msouth@cpan.org>
+ o CPAN Release 2.60
+
+ o using 'localhost' when creating daemons for any local/*.t
+   tests.  Some machines don't return a reachable domain
+   for `hostname`.  This may need further refinement.
+ o exiting explicitly from daemon in local/*.t code that
+   creates them.  This was already done in timeouts.t,
+   adding it to the other two locations.
+ o attempting a fix for https://rt.cpan.org/Ticket/Display.html?id=46821
+   without having reproduced.  Should at least do no harm, though.
+ o applied (some of) the patch for https://rt.cpan.org/Ticket/Display.html?id=35775
+   by CHORNY@cpan.org (issue with use of `pwd` on Win32)
+ o adding (generated) META.yml and META.json 
+
 Fri Feb 15 2013 Michael South <msouth@cpan.org>
  o CPAN Release 2.59
 

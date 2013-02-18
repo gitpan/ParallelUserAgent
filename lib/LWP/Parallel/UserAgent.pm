@@ -1297,7 +1297,9 @@ sub handle_response
 	unless (@challenge) {
 	    $response->header("Client-Warning" => 
 			      "Missing Authenticate header");
-	  LWP::Debug::trace("<- ($response [".$response->header.'] )');
+        # added the argument to header here (a guess at which header) 
+        # because it dies if you pass no header https://rt.cpan.org/Ticket/Display.html?id=46821
+	  LWP::Debug::trace("<- ($response [".$response->header('Client-Warning').'] )');
 	    return $response;
 	}
 	
@@ -1315,7 +1317,9 @@ sub handle_response
 	  unless ($scheme =~ /^([a-z]+(?:-[a-z]+)*)$/) {
 	    $response->header("Client-Warning" => 
 			      "Bad authentication scheme '$scheme'");
-	    LWP::Debug::trace("<- ($response [".$response->header.'] )');
+        # added the argument to header here (a guess at which header) 
+        # because it dies if you pass no header https://rt.cpan.org/Ticket/Display.html?id=46821
+	    LWP::Debug::trace("<- ($response [".$response->header('Client-Warning').'] )');
 	    return $response;
 	  }
 	  $scheme = $1;  # untainted now
@@ -1340,7 +1344,9 @@ sub handle_response
 	  return $class->authenticate($self, $proxy, $challenge, $response,
 				    $request, $entry->arg, $entry->size);
 	}
-        LWP::Debug::trace("<- ($response [".$response->header.'] )');
+        # added the argument to header here (a guess at which header) 
+        # because it dies if you pass no header https://rt.cpan.org/Ticket/Display.html?id=46821
+        LWP::Debug::trace("<- ($response [".$response->header('Client-Warning').'] )');
 	return $response;
     }
     LWP::Debug::trace("<- standard exit ($response)");

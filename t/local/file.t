@@ -15,8 +15,8 @@ my $ua = new LWP::Parallel::UserAgent;
 $ua->agent("Mozilla/0.01 " . $ua->agent);
 $ua->from('marclang@cpan.org');
 
-my $pwd = `pwd`;
-chomp $pwd;
+use Cwd;
+my $pwd = getcwd;
 
 #---------------------------------------------------------------
 print "\nLWP::Parallel::UserAgent interface...";
