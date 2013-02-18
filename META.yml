@@ -23,4 +23,4 @@ requires:
   LWP: 5.64
   LWP::Protocol::http10: 0
   LWP::Protocol::https10: 0
-version: 2.60
+version: 2.61

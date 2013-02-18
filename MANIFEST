@@ -4,6 +4,8 @@ TODO
 README
 README.SSL
 Makefile.PL
+META.yml
+META.json
 lib/Bundle/ParallelUA.pm
 lib/LWP/Parallel.pm
 lib/LWP/ParallelUA.pm

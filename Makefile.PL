@@ -74,7 +74,7 @@ WriteMakefile(
     'DISTNAME'  => 'ParallelUserAgent',
     'VERSION_FROM' => 'lib/LWP/Parallel.pm', # finds $VERSION
     'LICENSE'      => 'perl',
-    'AUTHOR'       => ['Marc Langheinrich <marclang@cpan.org>', 'Mike South (maintainer) <msouth@cpan.org>'],
+    'AUTHOR'       => 'Marc Langheinrich <marclang@cpan.org>, Mike South (maintainer) <msouth@cpan.org>',
     #
     # automated testing on 5.16.2 gave errors at make test; not able to find
     # LWP::Protocol::http10.  Repeated a reduced version of the

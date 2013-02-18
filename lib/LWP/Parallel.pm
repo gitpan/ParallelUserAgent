@@ -3,7 +3,7 @@
 
 package LWP::Parallel;
 
-$VERSION = '2.60';
+$VERSION = '2.61';
 sub Version { $VERSION };
 
 require 5.004;

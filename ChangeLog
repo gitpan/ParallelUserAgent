@@ -1,4 +1,9 @@
 Mon Feb 18 2013 Michael South <msouth@cpan.org>
+ o CPAN Release 2.61
+
+ o Correcting error in Makefile.PL :(
+
+Mon Feb 18 2013 Michael South <msouth@cpan.org>
  o CPAN Release 2.60
 
  o using 'localhost' when creating daemons for any local/*.t
